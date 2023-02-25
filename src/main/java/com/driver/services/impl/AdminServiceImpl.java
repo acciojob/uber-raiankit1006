@@ -27,11 +27,16 @@ public class AdminServiceImpl implements AdminService {
 
 	@Override
 	public void adminRegister(Admin admin) {
+		adminRepository1.save(admin);
 		//Save the admin in the database
 	}
 
 	@Override
 	public Admin updatePassword(Integer adminId, String password) {
+		Admin admin = adminRepository1.findById(adminId).get();
+		admin.setPassword(password);
+		adminRepository1.save(admin);
+		return admin;
 		//Update the password of admin with given id
 
 	}
@@ -39,19 +44,23 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public void deleteAdmin(int adminId){
 		// Delete admin without using deleteById function
+		adminRepository1.deleteById(adminId);
 
 	}
 
 	@Override
 	public List<Driver> getListOfDrivers() {
+
 		//Find the list of all drivers
+		List<Driver> l = driverRepository1.findAll();
+		return l;
 
 	}
 
 	@Override
 	public List<Customer> getListOfCustomers() {
+		List<Customer> l = customerRepository1.findAll();
+		return l;
 		//Find the list of all customers
-
 	}
-
 }
